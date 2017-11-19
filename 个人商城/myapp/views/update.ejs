@@ -1,0 +1,36 @@
+<% include header %>
+<div class="update">
+<% var id = good._id  %>
+<%= good.classify %>
+<form action="" method="post">
+	名称：<input type="text" name="name" value="<%= good.productName %>"  required  disabled/>
+	<br><br>
+	图片：<img src="/<%= good.productImage %>" alt="" /><br><br>
+	价格：<input type="number" name="salePrice" value="<%= good.salePrice %>"  required />
+	<br><br>
+	分类：
+	<select name="classify" disabled>
+		<option value="<%= good.classify %>"><%= good.classify %></option>
+	</select>
+	<br><br>
+	描述：<input type="text" name="describe" value="<%= good.describe %>"  required />
+	<input type="hidden" value="<%= id %>" />
+	<br><br>
+	<button type="submit">更改</button>
+</form>
+</div>
+<% include footer %>
+<script >
+	var date =  $('input[type=hidden]').val();
+	console.log(date);
+	$('form').submit(function(ev){
+		ev.preventDefault();
+		var data = $(this).serialize()
+		$.post('/change'+ '/' + date,data,function(resDate){
+			console.log(resDate);
+			if(resDate.error == 0){
+				location.href = '/';
+			}
+		})
+	})
+</script>

@@ -1,0 +1,61 @@
+<% include header %>
+<div class="wrap">
+	<h1>后台管理</h1>
+	<div class="header-wrap">
+		<% if(adm){ %>
+		<span><%= adm.uname %></span>
+		<a href="/exit">退出</a>
+		<a href="/add">添加商品</a>
+	</div>
+	<div class="cont-wrap">
+		<!--<input type="text" value="" class="search" /><span class="seek">搜索</span>-->
+		<div>
+			<a href="/classify/精选">精选</a>
+			<a href="/classify/男装">男装</a>
+			<a href="/classify/数码家电 ">数码家电</a>
+			<a href="/classify/美食">美食</a>
+			<a href="/classify/居家日用 ">居家日用</a>
+		</div>
+		<table border="" cellspacing="" cellpadding="">
+			<tr>
+				<th>名称</th>
+				<th>描述</th>
+				<th>价格</th>
+				<th>分类</th>
+				<th>库存</th>
+				<th>操作</th>
+			</tr>
+			<% datas.forEach(function(data){ %>
+			<% var id = data._id  %>
+			<tr>
+				
+				<td><img src="/uploads/<%= data.productImage.split(',')[0]  %>"/><%= data.productName %></td>
+				<td><%= data.describe %></td>
+				<td>￥<%= data.salePrice  %></td>
+				<td><%= data.classify  %></td>
+				<td><%= data.productNum %></td>
+				<td><a href="/update/<%= id %>">修改</a><a href="/dele/<%= id  %>">删除</a></td>
+			</tr>
+			<% }) %>
+		</table>
+		<% }else{ %>
+		<a href="/admlogin">登录</a>
+		<a href="/admzhuce">注册</a>
+		<% } %>
+	</div>
+	
+</div>
+<% include footer %>
+<!--<script type="text/javascript">
+	$('.seek').click(function(ev){
+		console.log($('.search').val())
+		var data = {name:$('.search').val()};
+		$.post('/search',data,function(resDate){
+			if(resDate.error == 0){
+				location.href = '/'
+			}
+		     
+		})
+	})
+	
+</script>-->

@@ -1,0 +1,29 @@
+<% include header %>
+         <a href="/">首页</a>
+         <% if(datas.length > 0){  %>
+        <table border="" cellspacing="" cellpadding="">
+			<tr>
+				<th>名称</th>
+				<th>描述</th>
+				<th>价格</th>
+				<th>分类</th>
+				<th>库存</th>
+				<th>操作</th>
+			</tr>
+			<% datas.forEach(function(data){ %>
+			<% var id = data._id  %>
+			<tr>
+				<td><img src="/<%= data.productImage %>"/><%= data.productName %></td>
+				<td><%= data.describe %></td>
+				<td>￥<%= data.salePrice  %></td>
+				<td><%= data.classify  %></td>
+				<td><%= data.productNum %></td>
+				<td><a href="/update/<%= id %>">修改</a><a href="/dele/<%= id  %>">删除</a></td>
+			</tr>
+			<% }) %>
+		</table>
+		<% }else{%>
+			<h4>没有商品，请添加商品吧~</h4>
+		<% } %>
+
+<% include footer %>

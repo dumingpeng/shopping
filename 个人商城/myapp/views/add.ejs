@@ -1,0 +1,60 @@
+<% include header %>
+<form action="" method="post" enctype="multipart/form-data">  
+	名称：<input type="text" name="name"  required />
+	<br><br>  
+	价格：<input type="number" name="price"  required />
+	<br><br>
+	描述：<input type="text" name="describe"  required />
+	<br><br>
+	分类：<select name="classify" id="">
+		<option value="精选">精选</option>
+		<option value="男装">男装</option>
+		<option value="数码家电">数码家电</option>
+		<option value="美食">美食</option>
+		<option value="居家日用">居家日用</option>
+	</select>
+	<br><br>
+	图片：
+    <input type="file" name="photo" accept="image/*" multiple>
+	<br><br>
+	数量：<input type="number" name="productNum" required/>
+	<br><br>
+	<button type="submit">添加</button>
+</form>
+<% include footer %>
+<script>
+
+// 在页面上展示选择的图片section
+// 选择完图片，点击‘打开’按钮的时候，会触发change事件
+var files = [];
+$(':file').on('change',function(){
+    console.log(this)
+    //找到input选中的文件
+    files.push(this.files);
+    console.log(files)
+    // 拼接字符串
+    for(var i = 0 ; i < files.length ;i ++){
+        var file = files[i]
+    }
+    
+})
+$('form').submit(function(ev){
+		ev.preventDefault();	
+		this.append(files);
+		console.log(this);
+		var data = new FormData(this);
+		console.log(data);
+		$.post({
+			url:'/add',
+			data:data,
+			contentType:false,
+			processData:false,
+			success:function(resData){
+			if(resData.error == 0){
+				location.href = "/";
+				files = [];
+			}
+			}
+		})
+	})
+</script>

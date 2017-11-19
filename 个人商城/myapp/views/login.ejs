@@ -1,0 +1,46 @@
+<% include header %>
+<form >
+	姓名：<input type="text" name="uname"   required/>
+	<span class="uname">姓名不符合格式</span>
+	<br><br>
+	密码：<input type="password" name="password"   required/>
+	<span class="pwd">密码不符合格式</span>
+	<br><br>
+	<button type="submit">登录</button><a href="/admzhuce">注册</a>
+</form>
+
+<% include footer %>
+<script>
+	$('span').hide();
+	$('form').submit(function(ev){
+		
+		ev.preventDefault();
+		var inp = $('input').eq(0).val();
+		//用户名规范
+		var str1 = new RegExp(/^[\u4E00-\u9FA5A-Za-z0-9]{3,20}$/);
+		var inp1 = $('input').eq(1).val();
+		//密码规范
+		var str2 = new RegExp(/^[a-zA-Z]\w{5,17}$/);
+		function hidden(){
+			setTimeout(function(){
+			$('span').fadeOut();
+		},1000)
+		}
+		if(!(str1.test(inp))){
+		$('.uname').show();
+		hidden();
+		return;
+		}
+		if(!(str2.test(inp1))){
+		$('.pwd').show(1000);
+		hidden();
+		return;
+		}
+		var data = $(this).serialize();
+		$.post('/admlogin',data,function(resDate){
+			if(resDate.error == 0){
+				location.href = '/';
+			}
+		})
+	})
+</script>

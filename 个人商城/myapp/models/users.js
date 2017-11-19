@@ -1,0 +1,89 @@
+var mongoose  = require('mongoose');
+const db = require('./db');
+var Schema = mongoose.Schema;
+
+var userSchema = new Schema({
+	"userId":String,
+	"userName":String,
+	"userPwd":String,
+	"create_time":Date,
+	"userImg":String,
+	"sex":String,
+	//积分
+	"integral":Number,
+	"articleNum":Number,
+	//购物车
+	"cartList":[
+	{
+		"commodityId":String,
+		"commodityName":String,
+		"salePrice":Number,
+		"commodityImage":String,
+		"checked":Boolean,
+		"commodityNum":Number,
+		'describe':String
+	}
+	],
+	//收货地址
+	"addressList":[
+	{
+		"address":String,
+		"userName":String,
+		"streetName":String,
+		"tel":Number,
+		"isDefault":Boolean
+	}
+	],
+	//待收货
+	"readyCargo":[
+	{
+		"cargoId":String,
+		"cargoName":String,
+		"salePrice":Number,
+		"cargoImage":String,
+		"cargoNum":Number,
+		'describe':String
+	}
+	],
+	//订单
+	"place":[
+	{
+		"placeId":String,
+		"placeName":String,
+		"salePrice":Number,
+		"placeImage":String,
+		"placeNum":Number,
+		'describe':String
+	}
+	],
+	//收藏
+	"collect":[
+	{
+	   "collectId":String,
+	   "collectName":String,
+	   "salePrice":Number,
+	   "collectImage":String,
+	   "collectNum":Number,
+	   "describe":String 	
+	}
+	],
+	//待评价
+	"noevaluate":[
+	{ 
+		"noevaluateId":String,
+		"noevaluateName":String,
+		"noevaluateImg":String
+	}
+	],
+	//消息通知
+	'news':[
+	{
+	    "classify":String,
+	    "message":String,
+	    "shopId":String,
+	}
+	]
+})
+
+
+module.exports = mongoose.model("User",userSchema);
